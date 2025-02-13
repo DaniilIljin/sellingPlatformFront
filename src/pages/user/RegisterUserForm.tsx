@@ -7,7 +7,8 @@ import {registerUser} from "../../api/auth.ts";
 import {useNavigate} from "react-router-dom";
 
 const schema = z.object({
-    name: z.string().min(1, 'Name is required'),
+    name: z.string().min(1, 'Username is required'),
+    fullName: z.string().min(1, 'Full name is required'),
     email: z.string().email('Invalid email format').min(1, 'Email is required'),
     address: z.string().min(1, 'Address is required'),
     additionalInfo: z.string().max(200, 'Additional info should not exceed 200 characters').optional(),
@@ -27,6 +28,7 @@ const RegisterUserForm = () => {
             email: 'a@B.ee',
             password: 'Password1.',
             name: "BIGDEN",
+            fullName: "Big Den",
             address: "Akadeemia",
             additionalInfo: "I am human",
         }
@@ -64,10 +66,17 @@ const RegisterUserForm = () => {
                     User Registration
                 </Typography>
                 <TextField
-                    label="Name"
+                    label="Username"
                     {...register('name')}
                     error={!!errors.name}
                     helperText={errors.name?.message}
+                    fullWidth
+                />
+                <TextField
+                    label="Full name"
+                    {...register('fullName')}
+                    error={!!errors.fullName}
+                    helperText={errors.fullName?.message}
                     fullWidth
                 />
                 <TextField
